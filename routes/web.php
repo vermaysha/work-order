@@ -16,7 +16,7 @@ Route::post('/login', 'Auth\LoginController@login');
 
 Route::middleware('auth')->group(function() {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/logout', 'Auth\LoginController@logout');
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/request', 'OrderController@create')->name('request');
     Route::post('/request', 'OrderController@store');
 
