@@ -11,7 +11,8 @@
 |
 */
 
-Auth::routes();
+Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::post('/login', 'Auth\LoginController@login');
 
 Route::middleware('auth')->group(function() {
     Route::get('/', 'HomeController@index')->name('home');
