@@ -74,6 +74,9 @@
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <li class="user-footer">
                             <div class="row">
+                                <div class="col">
+                                    <a href="{{ route('profile') }}" class="btn btn-default btn-flat">Profile</a>
+                                </div>
                                 <div class="col text-right">
                                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
@@ -116,6 +119,7 @@
                               </p>
                             </a>
                         </li>
+                        @if (Auth::user()->role !== 'admin')
                         <li class="nav-item has-treeview">
                             <a href="" class="nav-link @if (Route::is('order.in') || Route::is('order.out')) active @endif">
                                 <i class="nav-icon fas fa-cog"></i>
@@ -139,6 +143,41 @@
                                 </li>
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->role == 'admin')
+                        <li class="nav-item">
+                            <a href="{{ route('order') }}" class="nav-link @if (Route::is('order')) active @endif">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Work Order
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ route('profile') }}" class="nav-link @if (Route::is('profile')) active @endif">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    My Profile
+                                </p>
+                            </a>
+                        </li>
+                        @if (Auth::user()->role == 'admin')
+                        <li class="nav-item">
+                            <a href="{{ route('user') }}" class="nav-link @if (
+                                Route::is('user') ||
+                                Route::is('user.create') ||
+                                Route::is('user.detail') ||
+                                Route::is('user.edit')
+                                ) active @endif">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Users Management
+                                </p>
+                            </a>
+                        </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
                                 <i class="nav-icon fas fa-power-off"></i>

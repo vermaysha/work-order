@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('api_token', 80)->unique()->nullable()->default(null);
-            $table->enum('role', ['user', 'developer'])->default('user');
+            $table->enum('role', ['user', 'developer', 'admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

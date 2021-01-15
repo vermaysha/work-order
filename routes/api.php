@@ -14,4 +14,5 @@ use Illuminate\Http\Request;
 */
 Route::middleware('auth:api')->group(function() {
     Route::get('/history', 'OrderController@index')->name('history');
+    Route::get('/user', 'UserController@index')->name('user');
 });

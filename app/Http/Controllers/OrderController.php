@@ -20,10 +20,12 @@ class OrderController extends Controller
         $orders = Order::query()
             ->with(['assign', 'from']);
 
-        if ($request->has('type') && $request->type == 'in') {
-            $orders->where('assign_id', Auth::id());
-        } else if ($request->has('type') && $request->type == 'out') {
-            $orders->where('from_id', Auth::id());
+        if (Auth::user()->role !== 'admin') {
+            if ($request->has('type') && $request->type == 'in') {
+                $orders->where('assign_id', Auth::id());
+            } else if ($request->has('type') && $request->type == 'out') {
+                $orders->where('from_id', Auth::id());
+            }
         }
 
         return datatables()->eloquent($orders)->toJson();
@@ -34,8 +36,24 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function all()
+    {
+        if (Auth::user()->role !== 'admin') {
+            abort('403');
+        }
+        return view('orders.all');
+    }
+
+    /**
+     * Show the order
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function in()
     {
+        if (Auth::user()->role == 'admin') {
+            abort('403');
+        }
         return view('orders.in');
     }
 
@@ -46,6 +64,9 @@ class OrderController extends Controller
      */
     public function out()
     {
+        if (Auth::user()->role == 'admin') {
+            abort('403');
+        }
         return view('orders.out');
     }
 
@@ -56,6 +77,9 @@ class OrderController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->role !== 'admin') {
+            abort('403');
+        }
         return view('orders.create', [
             'users' => User::where('role', 'developer')->get(),
         ]);
@@ -109,12 +133,16 @@ class OrderController extends Controller
         $order = Order::query();
 
         $order->where(function($query) use ($woNumber) {
-            $query->where('assign_id', Auth::id());
+            if (Auth::user()->role !== 'admin') {
+                $query->where('assign_id', Auth::id());
+            }
             $query->where('wo_number', $woNumber);
         });
 
         $order->orWhere(function($query) use ($woNumber) {
-            $query->orWhere('from_id', Auth::id());
+            if (Auth::user()->role !== 'admin') {
+                $query->orWhere('from_id', Auth::id());
+            }
             $query->where('wo_number', $woNumber);
         });
 
@@ -133,7 +161,9 @@ class OrderController extends Controller
     {
         $order = Order::query();
 
-        $order->where('assign_id', Auth::id());
+        if (Auth::user()->role !== 'admin') {
+            $order->where('assign_id', Auth::id());
+        }
         $order->where('wo_number', $woNumber);
 
         return view('orders.edit_status', [
@@ -154,13 +184,19 @@ class OrderController extends Controller
             'status' => 'required|in:open,progress,finish'
         ]);
 
-        $order = Order::where('assign_id', Auth::id())->where('wo_number', $woNumber)->firstOrFail();
+        $order = Order::where('wo_number', $woNumber);
+        if (Auth::user()->role !== 'admin') {
+            $order->where('assign_id', Auth::id());
+        }
+        $order = $order->firstOrFail();
 
         $order->status = $request->status;
 
         $order->save();
 
-        return redirect()->route('order.in')->with('status', 'Work Order telah diubah');
+        return redirect()
+            ->route(Auth::user()->role == 'admin' ? 'order' : 'order.in')
+            ->with('status', 'Work Order telah diubah');
     }
 
     /**
@@ -173,7 +209,9 @@ class OrderController extends Controller
     {
         $order = Order::query();
 
-        $order->where('from_id', Auth::id());
+        if (Auth::user()->role !== 'admin') {
+            $order->where('from_id', Auth::id());
+        }
         $order->where('wo_number', $woNumber);
 
         return view('orders.edit', [
@@ -198,7 +236,11 @@ class OrderController extends Controller
             'description' => 'required'
         ]);
 
-        $order = Order::where('from_id', Auth::id())->where('wo_number', $woNumber)->firstOrFail();
+        $order = Order::where('wo_number', $woNumber);
+        if (Auth::user()->role !== 'admin') {
+            $order->where('from_id', Auth::id());
+        }
+        $order = $order->firstOrFail();
 
         $order->title = $request->title;
         $order->category = $request->category;
@@ -206,7 +248,9 @@ class OrderController extends Controller
         $order->description = $request->description;
         $order->save();
 
-        return redirect()->route('order.out')->with('status', 'Work Order telah diubah');
+        return redirect()
+            ->route((Auth::user()->role == 'admin' ? 'order' : 'order.out'))
+            ->with('status', 'Work Order telah diubah');
     }
 
     /**
@@ -217,10 +261,17 @@ class OrderController extends Controller
      */
     public function destroy($woNumber)
     {
-        $order = Order::where('from_id', Auth::id())->where('wo_number', $woNumber)->firstOrFail();
+        $order = Order::where('wo_number', $woNumber);
+        if (Auth::user()->role !== 'admin') {
+            $order->where('from_id', Auth::id());
+        }
+        $order = $order->firstOrFail();
 
         $order->delete();
 
-        return redirect()->route('order.out')->with('status', 'Work Order telah dihapus');
+
+        return redirect()
+            ->route((Auth::user()->role == 'admin' ? 'order' : 'order.out'))
+            ->with('status', 'Work Order telah dihapus');
     }
 }

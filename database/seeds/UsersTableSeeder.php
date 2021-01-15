@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,40 +13,30 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-       User::insert([
-            'fullname' => 'Developer',
-            'username' => 'developer',
-            'email' => 'developer@dev.com',
-            'password' => Hash::make('developer'),
-            'role' => 'developer',
+        User::insert([
+            'fullname' => 'Administrator',
+            'username' => 'administrator',
+            'email' => 'admin@mail.com',
+            'password' => Hash::make('administrator'),
+            'role' => 'admin',
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
-        // User::insert([
-        //     'fullname' => 'Juju',
-        //     'username' => 'juju',
-        //     'email' => 'juju@mail.com',
-        //     'password' => Hash::make('developer'),
-        //     'role' => 'developer',
-        // ]);
+        if (App::environment('local', 'development')) {
+            User::insert([
+                'fullname' => 'Developer',
+                'username' => 'developer',
+                'email' => 'developer@dev.com',
+                'password' => Hash::make('developer'),
+                'role' => 'developer',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
 
-        // User::insert([
-        //     'fullname' => 'Jimmy',
-        //     'username' => 'jimmy',
-        //     'email' => 'jimmy@dev.com',
-        //     'password' => Hash::make('jimmy'),
-        //     'role' => 'jimmy',
-        // ]);
-
-        // User::insert([
-        //     'fullname' => 'Ashary',
-        //     'username' => 'ashary',
-        //     'email' => 'ashary@dev.com',
-        //     'password' => Hash::make('ashary'),
-        //     'role' => 'developer',
-        // ]);
-
-        factory(User::class, 9)->create();
+        if (App::environment('local', 'development')) {
+            factory(User::class, 15)->create();
+        }
     }
 }

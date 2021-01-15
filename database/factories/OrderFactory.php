@@ -10,7 +10,7 @@ $factory->define(Order::class, function (Faker $faker) {
         'wo_number' => 1,
         'title' => $faker->realText('30'),
         'category' => $faker->randomElement(['technical', 'nontechnical']),
-        'assign_id' => 1,
+        'assign_id' => 2,
         'from_id' => $faker->numberBetween(2, 10),
         'description' => $faker->realText,
         'status' => $faker->randomElement(['open', 'progress', 'finish']),
