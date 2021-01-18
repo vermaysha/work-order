@@ -78,7 +78,7 @@ class OrderController extends Controller
     public function create()
     {
         return view('orders.create', [
-            'users' => User::where('role', 'developer')->get(),
+            'users' => User::where('role', '!=', 'admin')->get(),
         ]);
     }
 
