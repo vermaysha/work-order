@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-<li class="breadcrumb-item active">Order Masuk</li>
+<li class="breadcrumb-item active">Request</li>
 @endsection
 
 
@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col">
                 <div class="card card-primary card-outline">
-                    <div class="card-header">Order masuk</div>
+                    <div class="card-header">Request masuk</div>
                     <div class="card-body">
                         @if (session('status'))
                         <div class="alert alert-success" role="alert">

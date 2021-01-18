@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Order Keluar')
+@section('title', 'Request Keluar')
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-<li class="breadcrumb-item active">Order Keluar</li>
+<li class="breadcrumb-item active">Request</li>
 @endsection
 
 
@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col">
                 <div class="card card-primary card-outline">
-                    <div class="card-header">Order Keluar</div>
+                    <div class="card-header">Request</div>
                     <div class="card-body">
                         @if (session('status'))
                         <div class="alert alert-success" role="alert">
