@@ -60,11 +60,11 @@ $(document).ready( function () {
             { data: 'from.fullname', title: 'Dari'},
             { data: 'status', title: 'Status', render: function (data, type, row, meta) {
                 if (row.status == 'open') {
-                    return '<span class="badge bg-primary">Terbuka</span>'
+                    return '<span class="badge bg-primary">Open</span>'
                 } else if (row.status == 'progress') {
-                    return '<span class="badge bg-success">Proses</span>'
+                    return '<span class="badge bg-success">Progress</span>'
                 } else if (row.status == 'finish') {
-                    return '<span class="badge bg-warning">Selesai</span>'
+                    return '<span class="badge bg-warning">Finish</span>'
                 }
             } },
             { data: 'created_at', title: 'Tanggal', render: function(data, type, row, meta) {
