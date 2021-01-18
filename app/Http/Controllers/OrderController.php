@@ -77,9 +77,6 @@ class OrderController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->role !== 'admin') {
-            abort('403');
-        }
         return view('orders.create', [
             'users' => User::where('role', 'developer')->get(),
         ]);
