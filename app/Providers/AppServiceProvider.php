@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Order;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('*', function($view) {
+            $view->with('assignCount', Order::where('assign_id', Auth::id())->count());
+            $view->with('fromCount', Order::where('from_id', Auth::id())->count());
+        });
     }
 }

@@ -126,6 +126,9 @@
                                 <p>
                                     Work Order
                                     <i class="right fas fa-angle-left"></i>
+                                    @if ($assignCount + $fromCount > 0)
+                                    <span class="badge badge-primary right">{{ $assignCount + $fromCount }}</span>
+                                    @endif
                                 </p>
                             </a>
                             <ul class="nav nav-treeview @if (Route::is('order.in') || Route::is('order.out')) d-block @endif">
@@ -133,12 +136,18 @@
                                     <a href="{{ route('order.in') }}" class="nav-link @if (Route::is('order.in')) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Masuk</p>
+                                        @if ($assignCount)
+                                        <span class="badge bg-maroon right">{{ $assignCount }}</span>
+                                        @endif
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('order.out') }}" class="nav-link @if (Route::is('order.out')) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Keluar</p>
+                                        @if ($fromCount > 0)
+                                        <span class="badge bg-olive right">{{ $fromCount }}</span>
+                                        @endif
                                     </a>
                                 </li>
                             </ul>
