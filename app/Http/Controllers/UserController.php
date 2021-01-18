@@ -59,10 +59,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->role !== 'admin') {
-            abort(403);
-        }
-
         $request->validate([
             'fullname' => [
                 'required'
