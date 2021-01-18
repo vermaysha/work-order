@@ -125,7 +125,6 @@
                                 <i class="nav-icon fas fa-cog"></i>
                                 <p>
                                     Work Order
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview @if (Route::is('order.in') || Route::is('order.out')) d-block @endif">
