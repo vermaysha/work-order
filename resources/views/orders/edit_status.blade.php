@@ -28,7 +28,7 @@
                                 <label for="status">Status</label>
                                 <select name="status" id="status" class="form-control">
                                     <option value="">Pilih Status</option>
-                                    <option value="open" @if ($order->status == 'open') selected @endif>Opej</option>
+                                    <option value="open" @if ($order->status == 'open') selected @endif>Open</option>
                                     <option value="progress" @if ($order->status == 'progress') selected @endif>Progress</option>
                                     <option value="finish" @if ($order->status == 'finish') selected @endif>Finish</option>
                                 </select>
