@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with(
                 'fromCount',
                 Order::where('from_id', Auth::id())
-                ->where('status', '!=', 'finish')
+                    ->where('status', '!=', 'finish')
                     ->count()
             );
         });
