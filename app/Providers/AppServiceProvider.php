@@ -29,8 +29,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('*', function($view) {
-            $view->with('assignCount', Order::where('assign_id', Auth::id())->count());
-            $view->with('fromCount', Order::where('from_id', Auth::id())->count());
+            $view->with(
+                'assignCount',
+                Order::where('assign_id', Auth::id())
+                    ->where('status', '!=', 'finish')
+                    ->count()
+            );
+
+            $view->with(
+                'fromCount',
+                Order::where('from_id', Auth::id())
+                ->where('status', '!=', 'finish')
+                    ->count()
+            );
         });
     }
 }
