@@ -55,6 +55,20 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-md-4 col-form-label">Role</label>
+                                <div class="col-md-8">
+                                    @php
+                                        $role = empty(old('role')) ? $user->role : old('role');
+                                    @endphp
+                                    <select name="role" class="form-control">
+                                        <option value="">-- Select Role --</option>
+                                        <option value="user" @if ($role == 'user') selected @endif>Basic User</option>
+                                        <option value="developer" @if ($role == 'developer') selected @endif>Developer</option>
+                                        <option value="admin" @if ($role == 'admin') selected @endif>Administrator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-md-4 col-form-label">Password</label>
                                 <div class="col-md-8">
                                     <input name="password" type="password" class="form-control" placeholder="New Password">

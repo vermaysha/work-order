@@ -79,6 +79,10 @@ class UserController extends Controller
                 'email',
                 'max:255',
             ],
+            'role' => [
+                'required',
+                'in:user,developer,admin'
+            ],
             'password' => [
                 'required',
                 'string',
@@ -92,6 +96,7 @@ class UserController extends Controller
         $user->fullname = $request->fullname;
         $user->username = $request->username;
         $user->email    = $request->email;
+        $user->role     = $request->role;
         $user->password = Hash::make($request->password);
 
         $user->save();
@@ -166,6 +171,10 @@ class UserController extends Controller
                 'max:255',
                 Rule::unique('users', 'username')->ignore($id, 'id')
             ],
+            'role' => [
+                'required',
+                'in:user,developer,admin'
+            ],
             'password' => [
                 'nullable',
                 'string',
@@ -179,6 +188,7 @@ class UserController extends Controller
         $user->fullname = $request->fullname;
         $user->username = $request->username;
         $user->email    = $request->email;
+        $user->role     = $request->role;
         if (!empty($request->password)) {
             $user->password = Hash::make($request->newpassword);
         }
