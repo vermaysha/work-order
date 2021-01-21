@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $orders = Order::query()
-            ->with(['assign', 'from']);
+            ->with(['assign', 'from'])->orderBy('created_at', 'desc');
 
         if (Auth::user()->role !== 'admin') {
             if ($request->has('type') && $request->type == 'in') {
