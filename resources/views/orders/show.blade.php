@@ -87,6 +87,17 @@
                             <div class="col-md-10">{{ $order->updated_at->format('H:i:s - l, d F Y') }}</div>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        @if (Auth::user()->role == 'admin')
+                        <a href="{{ route('order.edit', [
+                            'woNumber' => $order->wo_number
+                        ]) }}" class="btn btn-sm btn-success" title="Edit">Edit Detail</a>
+                        @else
+                        <a href="{{ route('order.edit-status', [
+                            'woNumber' => $order->wo_number
+                        ]) }}" class="btn btn-sm btn-success" title="Edit">Edit Status</a>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

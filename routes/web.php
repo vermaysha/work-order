@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function() {
         Route::get('in', 'OrderController@in')->name('in');
         Route::get('out', 'OrderController@out')->name('out');
         Route::get('detail/{woNumber}', 'OrderController@show')->name('detail');
-        Route::get('edit-status/{woNumber}', 'OrderController@editStatus')->name('edit');
+        Route::get('edit-status/{woNumber}', 'OrderController@editStatus')->name('edit-status');
         Route::post('edit-status/{woNumber}', 'OrderController@updateStatus');
         Route::get('edit/{woNumber}', 'OrderController@edit')->name('edit');
         Route::post('edit/{woNumber}', 'OrderController@update');
