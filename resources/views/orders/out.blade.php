@@ -90,7 +90,6 @@ $(document).ready( function () {
                 targets: 6,
                 render: function (data, type, row, meta) {
                     return `<div class="btn-group align-middle text-center">
-                                <a href="/order/show/${row.wo_number}" class="btn btn-sm btn-primary" title="Detail"><i class="fas fa-search"></i></a>
                                 <a href="/order/edit/${row.wo_number}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i></a>
                                  <a href="/order/delete/${row.wo_number}" class="btn btn-sm btn-danger" title="Delete"><i class="fas fa-times"></i></a>
                             </div>`;
